@@ -1,20 +1,9 @@
+<<<<<<< HEAD
 
 
 # AmazonReviews
 
 
 
-## Usage
-
-
-
-## Developing
-
-
-
-### Tools
-
-Created with [Nodeclipse](https://github.com/Nodeclipse/nodeclipse-1)
- ([Eclipse Marketplace](http://marketplace.eclipse.org/content/nodeclipse), [site](http://www.nodeclipse.org))   
-
-Nodeclipse is free open-source project that grows with your contributions.
+# Furniture-Finder
+A Cloud based Application to demonstrate usage of puppet &amp; other cloud technologies
