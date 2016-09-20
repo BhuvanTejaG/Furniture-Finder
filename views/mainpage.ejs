@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Furniture Ecommerce Site</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div ng-app="myApp" ng-controller="mainPageController">
+<script>
+		angular.module('myApp', []).controller('mainPageController', function($scope,$http,$location) {
+		$scope.displayMode = false;
+		$scope.displayMode1 = false;
+		$scope.displayIP = false;
+		
+$scope.getIP = function() {
+		$http({
+	            method: 'GET',
+	            url: '/getIP'	            
+	         }).success(function(response){	
+	          if(response.status !== "fail")
+	            {
+	           $scope.displayIP=true;
+	            $scope.displayMode = false;
+	             //alert(JSON.stringify(response));
+	             //alert(JSON.stringify(response.ipaddress[0]));
+	            $scope.IP=response.ipaddress;
+	            }
+	            else
+	            { 
+	            alert("error");
+	            }     
+	        }).error(function(error){
+	           
+	        }); 
+		
+		}
+$scope.getAll = function() {
+		$http({
+	            method: 'GET',
+	            url: '/getAll'	            
+	         }).success(function(response){	
+	          if(response.status !== "fail")
+	            {
+	            $scope.displayMode = true;
+	            $scope.displayMode1 = false;
+	             //alert(JSON.stringify(response.results));
+	            $scope.all=response.results;
+	            }
+	            else
+	            { 
+	            alert("error");
+	            }     
+	        }).error(function(error){
+	           
+	        }); 
+		
+		}	
+		
+$scope.getDetails = function(productName) {
+		$http({
+	            method: 'GET',
+	            url: '/getProductDetails/'+productName
+	         }).success(function(response){	
+	          if(response.status !== "fail")
+	            {
+	            $scope.displayMode = true;
+	            $scope.displayMode1 = false;
+	             //alert(JSON.stringify(response.results));
+	            $scope.all=response.results;
+	          
+	            }
+	            else
+	            { 
+	            alert("error");
+	            }     
+	        }).error(function(error){
+	           
+	        }); 
+		
+		}
+	        
+});
+</script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Furniture Shopee</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#" ng-click="getIP()">Get the IP Address</a>
+                        <!-- <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getIP()">Get the IP Address
+                        </button> -->
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+           
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1>A Warm Welcome to home Furniture!</h1>
+            <p>Please click to view trending furniture info</p>
+            <div ng-show="displayIP">
+            <p>Local Address of Instance:{{IP}}</p>
+            </div> 
+            <div ng-show="displayMode1">
+            <p>Product Name:{{chair.title}}</p>
+            <p>Description:{{chair.desc}}</p>
+            <p>Cost:${{chair.cost}}</p>
+            </div>
+            
+
+            </p>
+            
+        </header>
+
+        <hr>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Latest Features</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+        <div class="row text-center">
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="https://s3-us-west-2.amazonaws.com/cmpe281images/chair_bhuvan.jpg" alt="Chair" style="width:304px;height:228px;">
+                    <div class="caption">
+                        <h3>Chair</h3>
+
+                        <p>
+                            <!-- <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a> -->
+                            <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getDetails('Chair')">More Info
+                        </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="https://s3-us-west-2.amazonaws.com/cmpe281images/sofa_bhuvan.jpg" alt="Sofa" style="width:304px;height:228px;">
+                    <div class="caption">
+                        <h3>Sofa</h3>
+
+                        <p>
+                           <!-- <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a> -->
+                            <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getDetails('Sofa')">More Info
+                        </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="https://s3-us-west-2.amazonaws.com/cmpe281images/table2.png" alt="Table" style="width:304px;height:228px;">
+                    <div class="caption">
+                        <h3>Table</h3>
+
+                        <p>
+                           <!-- <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a> -->
+                           <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getDetails('Table')">More Info
+                        </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="https://s3-us-west-2.amazonaws.com/cmpe281images/bed.jpg" alt="Bed" style="width:304px;height:228px;">
+                    <div class="caption">
+                        <h3>Bed</h3>
+
+                        <p>
+                            <!-- <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a> -->
+                            <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getDetails('Bed')">More Info
+                        </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="thumbnail">
+                    <img src="https://s3-us-west-2.amazonaws.com/cmpe281images/bookcase_bhuvan.jpg" alt="Book Case" style="width:304px;height:228px;">
+                    <div class="caption">
+                        <h3>Book Case</h3>
+
+                        <p>
+                          <!-- <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a> -->
+                          <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getDetails('BookCase')">More Info
+                        </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3 col-sm-6 hero-feature">
+            <div class="thumbnail">
+                <img src="https://s3-us-west-2.amazonaws.com/cmpe281images/sideboard1.jpg" alt="SideBoard" style="width:304px;height:228px;">
+                <div class="caption">
+                    <h3>SideBoard</h3>
+                    
+                    <p>
+                      <!-- <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a> -->
+                      <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getDetails('SideBoard')">More Info
+                    </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+<div class="col-md-12">
+
+          <button type="submit" class="btn btn-primary btn-large" ng-model="selectedChair" ng-click="getAll()">Show All Furniture Details
+                        </button>	  </div>
+                          
+		<div id="searchFurniture" ng-show="displayMode">
+       		
+		<div class="col-md-7 container">        	  				
+  				<div class="content">  					
+						<h2>Searched Furniture</h2>
+    						<div class="form-group">
+ 
+								<table class="table table-striped">		
+								<tr>
+								<th>Product Name</th>
+								<th>Description</th>
+								<th>Product Cost</th>
+								</tr>						
+								<tr ng-repeat="x in all">
+								<td>{{x.name}}</td>								 
+								<td>{{x.description}}</td>
+								<td>{{x.price}}</td>					 
+								</tr>
+								</table>
+					         </div>
+					</div>
+			</div>
+		</div>
+		
+		
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; CMPE281 2015</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+</div>
+</body>
+
+</html>
